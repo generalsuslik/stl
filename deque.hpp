@@ -272,7 +272,7 @@ public:
             : buckets_(nullptr)
             , size_(cap)
             , cap_(cap)
-            , buckets_cap_(0)
+            , buckets_cap_(cap_ / bucket_size_ + 1)
             , front_index_(0, 0)
             , back_index_(0, 0) {
         reallocate_at_back(buckets_cap_);
@@ -310,6 +310,8 @@ public:
 
     Deque& operator=(const Deque& other) {
         if (this != &other) {
+            clear();
+
             size_ = other.size_;
             cap_ = other.cap_;
             buckets_cap_ = other.buckets_cap_;
